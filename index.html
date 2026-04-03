@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Electric Winding Design Calculator</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>⚡ ADARSH ELECTRICAL</h1>
+            <p class="subtitle">Production-Ready Engineering Tool</p>
+        </header>
+
+        <!-- Mode Toggle -->
+        <div class="mode-toggle-section">
+            <label class="mode-toggle">
+                <input type="checkbox" id="modeToggle">
+                <span class="toggle-slider">
+                    <span class="toggle-label-left">SWG Mode</span>
+                    <span class="toggle-label-right">Wire Diameter (mm)</span>
+                </span>
+            </label>
+        </div>
+
+        <!-- Slot Area Module -->
+        <section class="card slot-area-card">
+            <h2>📐 Slot Area Configuration</h2>
+            <div class="input-group">
+                <label for="slotArea">Slot Area (sq.mm)</label>
+                <input type="number" id="slotArea" step="0.0001" min="0.0001" placeholder="Enter slot area">
+                <span class="error-message" id="slotAreaError"></span>
+            </div>
+            <div class="calculated-results">
+                <div class="result-item">
+                    <span class="result-label">45% Slot Area:</span>
+                    <span class="result-value" id="slot45">—</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">42% Slot Area:</span>
+                    <span class="result-value" id="slot42">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Winding Table -->
+        <section class="card winding-table-card">
+            <div class="card-header">
+                <h2>🔄 Winding Configuration</h2>
+                <button id="addRowBtn" class="btn btn-primary">+ Add Row</button>
+            </div>
+            <div class="table-container">
+                <table id="windingTable">
+                    <thead>
+                        <tr>
+                            <th>Row</th>
+                            <th id="gaugeHeader">SWG Gauge</th>
+                            <th>Turns per Slot</th>
+                            <th>Wires per Turn</th>
+                            <th>Wire Area (sq.mm)</th>
+                            <th>Total Area (sq.mm)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="windingTableBody">
+                        <!-- Rows will be dynamically added -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Summary Section -->
+        <section class="card summary-card">
+            <h2>📊 Summary</h2>
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Total Copper Area:</span>
+                    <span class="summary-value" id="totalCopperArea">0.0000</span>
+                    <span class="summary-unit">sq.mm</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Total Copper Area per Group:</span>
+                    <span class="summary-value" id="totalCopperAreaPerGroup">0.0000</span>
+                    <span class="summary-unit">sq.mm</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Copper Fill %:</span>
+                    <span class="summary-value fill-percentage" id="fillPercentage">0.00</span>
+                    <span class="summary-unit">%</span>
+                </div>
+            </div>
+            <div class="fill-indicator">
+                <div class="fill-bar">
+                    <div class="fill-progress" id="fillProgressBar"></div>
+                </div>
+                <div class="fill-status" id="fillStatus">Status: —</div>
+            </div>
+        </section>
+
+        <!-- Turns Calculator (Fill Factor 0.45 - 0.50) -->
+        <section class="card turns-card" aria-label="Turns calculator">
+            <div class="card-header">
+                <h2>🧮 Turns Calculator (Fill Factor)</h2>
+                <button id="addStrandRowBtn" class="btn btn-primary">+ Add Strand</button>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="turnSlotArea">Slot Area (sq.mm)</label>
+                    <input type="number" id="turnSlotArea" step="0.0001" min="0.0001" placeholder="Enter slot area">
+                    <span class="error-message" id="turnSlotAreaError"></span>
+                </div>
+
+                <div class="input-group">
+                    <label for="fillFactor">Fill Factor (0.40 to 0.50)</label>
+                    <input type="number" id="fillFactor" step="0.01" min="0.40" max="0.50" value="0.45" inputmode="decimal">
+                    <span class="error-message" id="fillFactorError"></span>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="strandTable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>SWG Gauge</th>
+                            <th>Qty</th>
+                            <th>Area (sq.mm)</th>
+                            <th>Row Area (sq.mm)</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="strandTableBody">
+                        <!-- Strand rows will be dynamically added -->
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="calculated-results">
+                <div class="result-item">
+                    <span class="result-label">Total Wire Area (sq.mm):</span>
+                    <span class="result-value" id="totalStrandArea">—</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Turns (exact):</span>
+                    <span class="result-value" id="turnsExact">—</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Turns (rounded):</span>
+                    <span class="result-value" id="turnsRounded">—</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label">Double layer split:</span>
+                    <span class="result-value" id="turnsDoubleLayer">—</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Copper Weight Calculator -->
+        <section class="card weight-card">
+            <h2>⚖️ Copper Weight Estimation</h2>
+            <div class="input-group">
+                <label for="meanTurnLength">Mean Turn Length (mm)</label>
+                <input type="number" id="meanTurnLength" step="0.01" min="0.01" placeholder="Optional">
+            </div>
+            <div class="input-group">
+                <label for="numberOfSlots">Number of Slots</label>
+                <input type="number" id="numberOfSlots" step="1" min="1" placeholder="Optional">
+            </div>
+            <div class="calculated-results">
+                <div class="result-item">
+                    <span class="result-label">Total Copper Weight:</span>
+                    <span class="result-value" id="copperWeight">—</span>
+                    <span class="result-unit">grams</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SWG Reference Link -->
+        <section class="card reference-card">
+            <h2>📚 SWG Reference</h2>
+            <p>Complete SWG (Standard Wire Gauge) reference database available.</p>
+            <button id="showSWGBtn" class="btn btn-secondary">View SWG Reference Table</button>
+        </section>
+    </div>
+
+    <!-- SWG Reference Modal -->
+    <div id="swgModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>SWG Reference Database</h2>
+                <span class="close-modal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="search-controls">
+                    <input type="text" id="swgSearch" placeholder="Search by gauge or diameter...">
+                    <select id="swgFilter">
+                        <option value="all">All Gauges</option>
+                        <option value="whole">Whole Gauges Only</option>
+                        <option value="half">Half Gauges Only</option>
+                    </select>
+                </div>
+                <div class="table-container">
+                    <table id="swgTable">
+                        <thead>
+                            <tr>
+                                <th>Gauge</th>
+                                <th>Diameter (mm)</th>
+                                <th>Area (sq.mm)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="swgTableBody">
+                            <!-- SWG data will be populated here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/swgDatabase.js"></script>
+    <script src="js/validation.js"></script>
+    <script src="js/calculatorEngine.js"></script>
+    <script src="js/uiController.js"></script>
+</body>
+</html>
+

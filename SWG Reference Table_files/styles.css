@@ -1,0 +1,126 @@
+* {
+  box-sizing: border-box;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #f4f6f8;
+}
+
+/* ================= HEADER ================= */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 20px;
+  background: #003366;
+  color: white;
+}
+
+.logo {
+  height: 45px;
+}
+
+/* ================= MM LINK BAR (AFTER HEADER) ================= */
+.mm-link-bar {
+  max-width: 1100px;
+  margin: 4px auto 0 auto;
+  padding: 0 15px;
+  text-align: right;
+}
+
+.mm-link-bar a {
+  font-size: 12px;
+  color: #003366;
+  text-decoration: none;
+}
+
+.mm-link-bar a:hover {
+  text-decoration: underline;
+}
+
+/* ================= MAIN ================= */
+.container {
+  max-width: 1100px;
+  margin: 20px auto;
+  padding: 0 15px;
+}
+
+/* ================= CARD ================= */
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 20px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #003366;
+}
+
+/* ================= GRID ================= */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
+
+label {
+  font-size: 13px;
+  color: #555;
+  display: block;
+  margin-bottom: 4px;
+}
+
+input {
+  width: 100%;
+  padding: 8px;
+  font-size: 14px;
+}
+
+input[readonly] {
+  background: #f0f0f0;
+}
+
+/* ================= TABLE ================= */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: center;
+}
+
+th {
+  background: #e9eef3;
+  font-weight: bold;
+}
+
+/* ================= SUMMARY ================= */
+.summary input {
+  font-weight: bold;
+}
+
+/* ================= MOBILE ================= */
+@media (max-width: 768px) {
+  .grid-3 {
+    grid-template-columns: 1fr;
+  }
+
+  table {
+    font-size: 12px;
+  }
+
+  .mm-link-bar {
+    text-align: left;
+    margin-top: 6px;
+  }
+}
