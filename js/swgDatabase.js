@@ -27,7 +27,7 @@ const SWG_DATABASE = [
     { gauge: "19", diameter_mm: 1.016, area_sqmm: 0.8107 },
     { gauge: "19.5", diameter_mm: 0.9652, area_sqmm: 0.7317 },
     { gauge: "20", diameter_mm: 0.9144, area_sqmm: 0.6567 },
-    
+    { gauge: "20.5", diameter_mm: 0.8636, area_sqmm: 0.58575 },
     // Gauge 21-25
     { gauge: "21", diameter_mm: 0.8128, area_sqmm: 0.5189 },
     { gauge: "21.5", diameter_mm: 0.762, area_sqmm: 0.456 },
